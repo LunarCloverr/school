@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вага на різних планетах</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    label, select, input, button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .result {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Вага на різних планетах</h1>
+    
+    <label for="planet">Виберіть планету:</label>
+    <select id="planet">
+      <option value="mercury">Меркурій</option>
+      <option value="venus">Венера</option>
+      <option value="earth">Земля</option>
+      <option value="mars">Марс</option>
+      <option value="jupiter">Юпітер</option>
+      <option value="saturn">Сатурн</option>
+      <option value="uranus">Уран</option>
+      <option value="neptune">Нептун</option>
+    </select>
+    
+    <label for="weight">Ваша вага на Землі (кг):</label>
+    <input type="number" id="weight" placeholder="Введіть вашу вагу" required>
+
+    <button onclick="calculateWeight()">Розрахувати вагу</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const gravity = {
+      mercury: 0.38,
+      venus: 0.91,
+      earth: 1,
+      mars: 0.38,
+      jupiter: 2.34,
+      saturn: 1.06,
+      uranus: 0.92,
+      neptune: 1.14
+    };
+
+    function calculateWeight() {
+      const weight = parseFloat(document.getElementById('weight').value);
+      const planet = document.getElementById('planet').value;
+      if (isNaN(weight) || weight <= 0) {
+        alert('Будь ласка, введіть правильну вагу!');
+        return;
+      }
+      
+      const planetWeight = weight * gravity[planet];
+      const planetName = document.querySelector(`#planet option[value="${planet}"]`).textContent;
+      document.getElementById('result').innerHTML = `Ваша вага на планеті ${planetName} буде: <strong>${planetWeight.toFixed(2)} кг</strong>`;
+    }
+  </script>
+
+</body>
+</html>
